@@ -2,10 +2,101 @@
 
 import * as fs from "fs";
 import cp from "child_process";
+const exec = promisify(cp.exec);
 import {promisify} from "util";
 import path from "path";
-import Spinner from "Spinner";
-const exec = promisify(cp.exec);
+import rdl from "readline";
+const std = process.stdout
+
+class Spinner {
+    constructor() {
+        this.timer = null;
+        this.frames = [
+            "⢀⠀",
+            "⡀⠀",
+            "⠄⠀",
+            "⢂⠀",
+            "⡂⠀",
+            "⠅⠀",
+            "⢃⠀",
+            "⡃⠀",
+            "⠍⠀",
+            "⢋⠀",
+            "⡋⠀",
+            "⠍⠁",
+            "⢋⠁",
+            "⡋⠁",
+            "⠍⠉",
+            "⠋⠉",
+            "⠋⠉",
+            "⠉⠙",
+            "⠉⠙",
+            "⠉⠩",
+            "⠈⢙",
+            "⠈⡙",
+            "⢈⠩",
+            "⡀⢙",
+            "⠄⡙",
+            "⢂⠩",
+            "⡂⢘",
+            "⠅⡘",
+            "⢃⠨",
+            "⡃⢐",
+            "⠍⡐",
+            "⢋⠠",
+            "⡋⢀",
+            "⠍⡁",
+            "⢋⠁",
+            "⡋⠁",
+            "⠍⠉",
+            "⠋⠉",
+            "⠋⠉",
+            "⠉⠙",
+            "⠉⠙",
+            "⠉⠩",
+            "⠈⢙",
+            "⠈⡙",
+            "⠈⠩",
+            "⠀⢙",
+            "⠀⡙",
+            "⠀⠩",
+            "⠀⢘",
+            "⠀⡘",
+            "⠀⠨",
+            "⠀⢐",
+            "⠀⡐",
+            "⠀⠠",
+            "⠀⢀",
+            "⠀⡀"
+        ];
+        this.interval = 80;
+        this.title = '';
+    }
+
+    spin(title) {
+        this.title = title;
+        std.write("\x1b[?25l");
+        const {interval, frames} = this;
+
+        let i = 0;
+        this.timer = setInterval(() => {
+            let now = frames[i];
+            if (now === undefined) {
+                i = 0;
+                now = frames[i];
+            }
+            std.write(now + ' ' + this.title + " " + now);
+            rdl.cursorTo(std, 0);
+            i = i >= frames.length ? 0 : i + 1;
+        }, interval);
+    }
+
+    stop() {
+        this.title = '';
+        clearInterval(this.timer);
+    }
+}
+
 
 
 const buildProject = async () => {
@@ -15,21 +106,6 @@ const buildProject = async () => {
         console.log("You have to provide a name to your app.");
         console.log("For example :");
         console.log("    npx create-hc-server my-app");
-        process.exit(1);
-    }
-
-    try {
-        await exec("yarn -v");
-    } catch (error) {
-        console.log("yarn is not installed, please install it and try again.");
-        process.exit(1);
-    }
-
-    try {
-        await exec("nvm -v");
-    } catch (error) {
-        console.log("nvm is not installed, please install it and run the following command");
-        console.log("Command: nvm install 18.17.1");
         process.exit(1);
     }
 
@@ -69,11 +145,10 @@ const buildProject = async () => {
         });
 
         process.chdir(projectPath);
-        await exec("npm uninstall ora cli-spinners"); // remove the packages needed for cli
         spinner.stop();
 
         spinner.spin("Installing project dependencies...");
-        await exec("nvm use && yarn");
+        await exec("yarn");
 
         console.log("Project initialized with yarn, creating .env file...");
         const vars = [
