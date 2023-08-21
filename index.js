@@ -3,7 +3,7 @@
 const fs = require('fs');
 const exec = require('util').promisify(require('child_process').exec);
 const path = require('path');
-const {Spinner} = require('./src/Spinner');
+const {Spinner} = require('./Spinner');
 
 const buildProject = async () => {
     const spinner = new Spinner();
