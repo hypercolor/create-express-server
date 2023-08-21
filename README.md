@@ -20,16 +20,16 @@ This tool is used by the team at Hypercolor Digital to quickly spin up a new bac
 Install this package using your package manager of choice.
 
 - NPM
-    - `npm i -g @hypercolor/create-express-server`
+    - `npm i -g @hypercolor/create-hc-server`
 - Yarn
-    - `yarn global add @hypercolor/create-expresss-server`
+    - `yarn global add @hypercolor/create-hc-server`
 
 ## Usage
 ### Step 1: Create Your New App
 
 After installing the package, you can run the following command to create a new project.
 ```terminal
-npx create-express-server my-server-name
+npx create-hc-server my-server-name
 ```
 
 ### Step 2: Finalize your configuration

@@ -1,5 +1,5 @@
 {
-  "name": "@hypercolor/create-express-server",
+  "name": "@hypercolor/create-hc-server",
   "version": "0.0.1",
   "description": "Used by the team at Hypercolor to quickly spin up a backend express server",
   "main": "index.js",
@@ -9,10 +9,23 @@
   "author": "Seth Uschuk",
   "license": "MIT",
   "bin": {
-    "create-express-server": "./index.js"
+    "create-hc-server": "index.js"
   },
   "devDependencies": {
     "@types/node": "^20.5.1"
   },
-  "dependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hypercolor/create-express-server.git"
+  },
+  "keywords": [
+    "server",
+    "scaffolding",
+    "express",
+    "api"
+  ],
+  "bugs": {
+    "url": "https://github.com/hypercolor/create-express-server/issues"
+  },
+  "homepage": "https://github.com/hypercolor/create-express-server#readme"
 }
