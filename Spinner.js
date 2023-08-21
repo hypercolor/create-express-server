@@ -4,7 +4,7 @@ const std = process.stdout
 const config = JSON.parse(fs.readFileSync('./config.json').toString())
 
 
-export class Spinner {
+class Spinner {
     constructor() {
         this.timer = null;
         this.frames = config.frames;
@@ -35,3 +35,5 @@ export class Spinner {
         std.write("\x1b[?25h");
     }
 }
+
+export default Spinner;

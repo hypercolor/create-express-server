@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const exec = require('util').promisify(require('child_process').exec);
-const path = require('path');
-const {Spinner} = require('./Spinner');
+import * as fs from "fs";
+import cp from "child_process";
+import {promisify} from "util";
+import path from "path";
+import Spinner from "Spinner";
+const exec = promisify(cp.exec);
+
 
 const buildProject = async () => {
     const spinner = new Spinner();

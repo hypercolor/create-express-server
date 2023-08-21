@@ -1,6 +1,7 @@
 {
   "name": "@hypercolor/create-hc-server",
-  "version": "0.0.4",
+  "type": "module",
+  "version": "0.0.7",
   "description": "Used by the team at Hypercolor to quickly spin up a backend express server",
   "main": "index.js",
   "scripts": {
